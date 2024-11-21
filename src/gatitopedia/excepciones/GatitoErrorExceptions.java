@@ -8,7 +8,7 @@
 
 package gatitopedia.excepciones;
 
-public class ManejoDeErroresGP extends Exception {
+public class GatitoErrorExceptions extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class ManejoDeErroresGP extends Exception {
 	private String titulo;
 
 	// Constructor que recibe un arreglo de Strings
-	public ManejoDeErroresGP(String[] msg) {
+	public GatitoErrorExceptions(String[] msg) {
 		super(msg[0]); // Mensaje de error
 		setTitulo(msg[1]); // Título del error
 	}

@@ -1,6 +1,6 @@
 package gatitopedia.excepciones;
 
-public class ExcepcionesGatitopedia extends Exception {
+public class GatitoWarningExceptions extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,7 +47,7 @@ public class ExcepcionesGatitopedia extends Exception {
 	private String titulo;
 
 	// Constructor que recibe un arreglo de Strings
-	public ExcepcionesGatitopedia(String[] msg) {
+	public GatitoWarningExceptions(String[] msg) {
 		super(msg[0]); // Mensaje de error
 		setTitulo(msg[1]); // Título del error
 	}

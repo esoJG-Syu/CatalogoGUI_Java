@@ -15,11 +15,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import gatitopedia.excepciones.ManejoDeErroresGP;
+import gatitopedia.excepciones.GatitoErrorExceptions;
 
 public class ManejadorDeArchivos {
 
-	public static void copiarArchivo(String rutaOrigen, String rutaDestino) throws ManejoDeErroresGP {
+	public static void copiarArchivo(String rutaOrigen, String rutaDestino) throws GatitoErrorExceptions {
 
 		try (BufferedInputStream lector = new BufferedInputStream(new FileInputStream(new File(rutaOrigen)));
 				BufferedOutputStream escritor = new BufferedOutputStream(new FileOutputStream(new File(rutaDestino)))) {
@@ -33,7 +33,7 @@ public class ManejadorDeArchivos {
 			}
 			
 		} catch (IOException e) {
-			throw new ManejoDeErroresGP(ManejoDeErroresGP.ERROR_CP);
+			throw new GatitoErrorExceptions(GatitoErrorExceptions.ERROR_CP);
 		}
 	}
 }

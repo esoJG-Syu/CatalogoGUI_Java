@@ -14,8 +14,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.toedter.calendar.JDateChooser;
 
 import gatitopedia.dominio.Gato;
-import gatitopedia.excepciones.ExcepcionesGatitopedia;
-import gatitopedia.excepciones.ManejoDeErroresGP;
+import gatitopedia.excepciones.GatitoWarningExceptions;
+import gatitopedia.excepciones.GatitoErrorExceptions;
 import gatitopedia.utilerias.ManejadorDeArchivos;
 import gatitopedia.utilerias.MiFocusTraversalPolicy;
 
@@ -591,7 +591,7 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					accionAñadirColor();
-				} catch (ExcepcionesGatitopedia ex) {
+				} catch (GatitoWarningExceptions ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), ex.getTitulo(), JOptionPane.WARNING_MESSAGE);
 					return;
 				}
@@ -837,11 +837,11 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 			// Limpiar los campos después de guardar
 			accionCancelar();
 
-		} catch (ExcepcionesGatitopedia e) {
+		} catch (GatitoWarningExceptions e) {
 
 			JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitulo(), JOptionPane.WARNING_MESSAGE);
 			return;
-		} catch(ManejoDeErroresGP e) {
+		} catch(GatitoErrorExceptions e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitulo(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -867,8 +867,8 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 					"El gato '" + gatoSeleccionado.getNombreGato() + "' ha sido eliminado con éxito.",
 					"Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
 			listaGatos.addItemListener(this);
+			accionCancelar();
 		}
-		accionCancelar();
 	}
 
 	private void accionCancelar() {
@@ -887,7 +887,7 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 	}
 
 	// Métodos para manejar las acciones de los botones auxiliares
-	private void accionAñadirColor() throws ExcepcionesGatitopedia {
+	private void accionAñadirColor() throws GatitoWarningExceptions {
 		String colorSeleccionado = color.getEditor().getItem().toString().trim();
 		boolean existe = false;
 
@@ -1007,7 +1007,7 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 	}
 	
 	// Método para procesar la imagen en el método guardar.
-	private void procesarImagen(Gato gato, boolean esNuevo, String getAntesSet) throws ManejoDeErroresGP {
+	private void procesarImagen(Gato gato, boolean esNuevo, String getAntesSet) throws GatitoErrorExceptions {
 		// Procesar la imagen y el directorio
 		File dirImgs = new File(System.getProperty("user.dir") + File.separator + "imagen");
 		if (!dirImgs.exists()) {

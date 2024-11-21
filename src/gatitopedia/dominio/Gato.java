@@ -11,7 +11,7 @@ package gatitopedia.dominio;
 import java.util.ArrayList;
 import java.util.Date;
 
-import gatitopedia.excepciones.ExcepcionesGatitopedia;
+import gatitopedia.excepciones.GatitoWarningExceptions;
 
 public class Gato {
 	private int edadGato; // Número libre
@@ -52,7 +52,7 @@ public class Gato {
 		return edadGato;
 	}
 
-	public void setEdadGato(String edadGato) throws ExcepcionesGatitopedia {
+	public void setEdadGato(String edadGato) throws GatitoWarningExceptions {
 		/*  PENDIENTE
         if (edadGato == null || edadGato.trim().isEmpty()) {
             throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.CVACIO_EDAD);
@@ -62,14 +62,14 @@ public class Gato {
 			int edadInt = Integer.parseInt(edadGato.trim());
 			setEdadGato(edadInt);
 		} catch(NumberFormatException e) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.ERROR_PARSEOE);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.ERROR_PARSEOE);
 		}
 	}
 
-    public void setEdadGato(int edadGato) throws ExcepcionesGatitopedia {
+    public void setEdadGato(int edadGato) throws GatitoWarningExceptions {
 
     	if (edadGato < 0 || edadGato > 20) {
-            throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.RANGO_EDAD);
+            throw new GatitoWarningExceptions(GatitoWarningExceptions.RANGO_EDAD);
         }
 
     	this.edadGato = edadGato;
@@ -80,21 +80,21 @@ public class Gato {
 		return pesoGato;
 	}
 
-	public void setPesoGato(String pesoGato) throws ExcepcionesGatitopedia {
+	public void setPesoGato(String pesoGato) throws GatitoWarningExceptions {
         
 		try {
     		float pesoFloat = Float.parseFloat(pesoGato.trim());
     		setPesoGato(pesoFloat);
 		} catch(NumberFormatException e) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.ERROR_PARSEOP);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.ERROR_PARSEOP);
 		}
 	}
 
-	public void setPesoGato(float pesoGato) throws ExcepcionesGatitopedia {
+	public void setPesoGato(float pesoGato) throws GatitoWarningExceptions {
 		if (pesoGato > 0) {
 			this.pesoGato = pesoGato;
 		} else {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.RANGO_PESO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.RANGO_PESO);
 		}
 	}
 
@@ -103,20 +103,20 @@ public class Gato {
 		return precioAdopcion;
 	}
 
-	public void setPrecioAdopcion(String precioGato) throws ExcepcionesGatitopedia {
+	public void setPrecioAdopcion(String precioGato) throws GatitoWarningExceptions {
 		try {
 			float precioFloat = Float.parseFloat(precioGato.trim());
 			setPrecioAdopcion(precioFloat);
 		} catch(NumberFormatException e) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.ERROR_PARSEOPR);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.ERROR_PARSEOPR);
 		}
 	}
 
-	public void setPrecioAdopcion(float precioAdopcion) throws ExcepcionesGatitopedia {
+	public void setPrecioAdopcion(float precioAdopcion) throws GatitoWarningExceptions {
 		if (precioAdopcion > 0 && precioAdopcion <= 10000) {
 			this.precioAdopcion = precioAdopcion;
 		} else {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.RANGO_PRECIO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.RANGO_PRECIO);
 		}
 	}
 
@@ -125,12 +125,12 @@ public class Gato {
 		return nombreGato;
 	}
 
-	public void setNombreGato(String nombreGato) throws ExcepcionesGatitopedia {
+	public void setNombreGato(String nombreGato) throws GatitoWarningExceptions {
 		String nombreLimpio = nombreGato.trim();
 		if (!nombreLimpio.isEmpty()) {
 			this.nombreGato = nombreLimpio;
 		} else {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.NOMBRE_OBLIGATORIO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.NOMBRE_OBLIGATORIO);
 		}
 	}
 
@@ -139,11 +139,11 @@ public class Gato {
 		return identificadorGato;
 	}
 
-	public void setIdentificadorGato(String idGato) throws ExcepcionesGatitopedia {
+	public void setIdentificadorGato(String idGato) throws GatitoWarningExceptions {
 		String idLimpio = idGato.trim();
 		
 		if(idLimpio.isEmpty()) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.ID_OBLIGATORIO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.ID_OBLIGATORIO);
 		}
 		
 		String regex = "[A-Z]{3}[0-9]{4}[HM]";
@@ -152,7 +152,7 @@ public class Gato {
 		if (comprobarFormato) {
 			this.identificadorGato = idLimpio;
 		} else {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.ID_FORMATO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.ID_FORMATO);
 		}
 	}
 
@@ -170,7 +170,7 @@ public class Gato {
 		return sexoGato;
 	}
 
-	public void setSexoGato(String sexoGato) throws ExcepcionesGatitopedia {
+	public void setSexoGato(String sexoGato) throws GatitoWarningExceptions {
 			this.sexoGato = sexoGato;
 	}
 
@@ -179,7 +179,7 @@ public class Gato {
 		return gatoEsterilizado;
 	}
 
-	public void setGatoEsterilizado(boolean gatoEsterilizado) throws ExcepcionesGatitopedia {
+	public void setGatoEsterilizado(boolean gatoEsterilizado) throws GatitoWarningExceptions {
 		this.gatoEsterilizado = gatoEsterilizado;
 	}
 
@@ -188,10 +188,10 @@ public class Gato {
 		return personalidad;
 	}
 
-	public void setPersonalidad(String personalidad) throws ExcepcionesGatitopedia {
+	public void setPersonalidad(String personalidad) throws GatitoWarningExceptions {
 		
 		if(personalidad.isEmpty()) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.PERSONALIDAD_NO_VACIO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.PERSONALIDAD_NO_VACIO);
 		}
 		this.personalidad = personalidad;
 	}
@@ -201,9 +201,9 @@ public class Gato {
 		return habitosEntrenamiento;
 	}
 
-	public void setHabitosEntrenamiento(ArrayList<String> habitosEntrenamiento) throws ExcepcionesGatitopedia {
+	public void setHabitosEntrenamiento(ArrayList<String> habitosEntrenamiento) throws GatitoWarningExceptions {
 		if(habitosEntrenamiento == null || habitosEntrenamiento.isEmpty()) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.HABITOS_OBLIGATORIO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.HABITOS_OBLIGATORIO);
 		}
 		this.habitosEntrenamiento = habitosEntrenamiento;
 	}
@@ -213,9 +213,9 @@ public class Gato {
 		return colorGato;
 	}
 
-	public void setColorGato(ArrayList<String> colorGato) throws ExcepcionesGatitopedia {
+	public void setColorGato(ArrayList<String> colorGato) throws GatitoWarningExceptions {
 		if(colorGato == null || colorGato.isEmpty()) {
-			throw new ExcepcionesGatitopedia(ExcepcionesGatitopedia.COLOR_OBLIGATORIO);
+			throw new GatitoWarningExceptions(GatitoWarningExceptions.COLOR_OBLIGATORIO);
 		}
 		this.colorGato = colorGato;
 	}
