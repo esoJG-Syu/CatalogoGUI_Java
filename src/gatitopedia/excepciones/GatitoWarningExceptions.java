@@ -5,19 +5,19 @@ public class GatitoWarningExceptions extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	// Validación para números libres: edad y peso
-	public static final String[] RANGO_EDAD = { "La edad del gato debe ser de 0 a 20 años.", "Error de Rango de Edad" };
+	public static final String[] RANGO_EDAD = { "La edad del gato debe ser de 0 a 20 años.", "Rango de Edad Incorrecto" };
 	public static final String[] ERROR_PARSEOE = { "El campo de edad debe contener únicamente números.",
-			"Error de Formato de Edad" };
+			"Formato de Edad Incorrecto" };
 
-	public static final String[] RANGO_PESO = { "El peso del gato no puede ser 0.", "Error de Rango de Peso" };
+	public static final String[] RANGO_PESO = { "El peso del gato no puede ser 0 kg.", "Rango de Peso Incorrecto" };
 	public static final String[] ERROR_PARSEOP = { "El campo de peso debe contener únicamente números.",
-			"Error de Formato de Peso" };
+			"Formato de Peso Incorrecto" };
 
 	// Validación para número con rango: precio
-	public static final String[] RANGO_PRECIO = { "El precio de adopción debe ser de 0 a 10000 pesos.",
-			"Error de Rango de Precio" };
+	public static final String[] RANGO_PRECIO = { "El precio de adopción debe ser de 1 a 10000 pesos.",
+			"Rango de Precio Incorrecto" };
 	public static final String[] ERROR_PARSEOPR = { "El campo del precio debe contener únicamente números.",
-			"Error de Formato de Precio" };
+			"Formato de Precio Incorrecto" };
 
 	// Validación de texto en fromato libre
 	public static final String[] NOMBRE_OBLIGATORIO = {
@@ -34,10 +34,6 @@ public class GatitoWarningExceptions extends Exception {
 	// personalidad
 	public static final String[] PERSONALIDAD_NO_VACIO = { "No se permiten valores vacíos en el campo 'Personalidad'.",
 			"Campo vacío no permitido" };
-
-	// Validación para dato multivalorado de opciones no excluyentes fijas: habitos de entrenamiento
-	public static final String[] HABITOS_OBLIGATORIO = { "Debe seleccionar al menos un hábito de entrenamiento.",
-	"Habitos requeridos" };
 	
 	// Validación de opciones no excluyentes dinámicas: color del gato
 	public static final String[] COLOR_OBLIGATORIO = { "Debe agregar al menos un color a la lista.",

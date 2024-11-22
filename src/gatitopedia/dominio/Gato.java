@@ -201,10 +201,7 @@ public class Gato {
 		return habitosEntrenamiento;
 	}
 
-	public void setHabitosEntrenamiento(ArrayList<String> habitosEntrenamiento) throws GatitoWarningExceptions {
-		if(habitosEntrenamiento == null || habitosEntrenamiento.isEmpty()) {
-			throw new GatitoWarningExceptions(GatitoWarningExceptions.HABITOS_OBLIGATORIO);
-		}
+	public void setHabitosEntrenamiento(ArrayList<String> habitosEntrenamiento) {
 		this.habitosEntrenamiento = habitosEntrenamiento;
 	}
 
@@ -214,7 +211,7 @@ public class Gato {
 	}
 
 	public void setColorGato(ArrayList<String> colorGato) throws GatitoWarningExceptions {
-		if(colorGato == null || colorGato.isEmpty()) {
+		if(colorGato.isEmpty()) {
 			throw new GatitoWarningExceptions(GatitoWarningExceptions.COLOR_OBLIGATORIO);
 		}
 		this.colorGato = colorGato;

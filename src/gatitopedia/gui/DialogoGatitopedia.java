@@ -199,7 +199,7 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 		edadGato.setToolTipText("Edad del animal");
 
 		// III - Peso
-		pesoLabel = new JLabel("Peso:");
+		pesoLabel = new JLabel("Peso en kg:");
 		pesoGato = new JTextField(20);
 		pesoLabel.setLabelFor(pesoGato);
 		pesoLabel.setDisplayedMnemonic(KeyEvent.VK_S);
@@ -730,9 +730,7 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 		// Objeto de la entidad gato
 		Gato gato;
 
-		boolean esNuevo = this.esNuevo;
-
-		if (esNuevo) {
+		if (this.esNuevo) {
 			// Crear nuevo objeto Gato
 			gato = new Gato();
 		} else {
@@ -821,16 +819,16 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 			 * Procesamos la imagen en un método aparte simplemente por comodidad y para no
 			 * saturar el método guardar
 			 */
-			procesarImagen(gato, esNuevo, getAntesSet);
+			procesarImagen(gato, this.esNuevo, getAntesSet);
 
 			
 			// Mensaje de éxito acorde a la acción
 			if (esNuevo) {
 				listaGatos.addItem(gato); // Solo agregar si es nuevo
-				JOptionPane.showMessageDialog(this, "Nuevo Gato Guardado Exitosamente.", "Información",
+				JOptionPane.showMessageDialog(this, "Nuevo Gato Guardado Exitosamente.", "Nuevo Gato",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(this, "Datos del Gato Modificados.", "Información",
+				JOptionPane.showMessageDialog(this, "Datos del Gato Modificados.", "Gato Modificado",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
