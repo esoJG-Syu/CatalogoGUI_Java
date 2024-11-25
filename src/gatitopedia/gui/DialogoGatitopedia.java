@@ -740,12 +740,6 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 
 		try {
 
-			/*
-			 * String temporal para almacenar el identificador del gato antes del set del
-			 * nuevo identificador lo usamos para las operaciones de la imagen
-			 */
-			String getAntesSet = gato.getIdentificadorGato();
-
 			// Aquí empiezan los seteos normales del método guardar
 			gato.setEdadGato(edadGato.getText());
 			gato.setPesoGato(pesoGato.getText());
@@ -819,11 +813,10 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 			 * Procesamos la imagen en un método aparte simplemente por comodidad y para no
 			 * saturar el método guardar
 			 */
-			procesarImagen(gato, this.esNuevo, getAntesSet);
+			procesarImagen(gato);
 
-			
 			// Mensaje de éxito acorde a la acción
-			if (esNuevo) {
+			if (this.esNuevo) {
 				listaGatos.addItem(gato); // Solo agregar si es nuevo
 				JOptionPane.showMessageDialog(this, "Nuevo Gato Guardado Exitosamente.", "Nuevo Gato",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -836,12 +829,11 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 			accionCancelar();
 
 		} catch (GatitoWarningExceptions e) {
-
 			JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitulo(), JOptionPane.WARNING_MESSAGE);
-			return;
-		} catch(GatitoErrorExceptions e) {
+
+		} catch (GatitoErrorExceptions e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), e.getTitulo(), JOptionPane.ERROR_MESSAGE);
-			return;
+
 		}
 	}
 
@@ -1003,70 +995,49 @@ public class DialogoGatitopedia extends JDialog implements ItemListener {
 
 		this.espacioImagen.setIcon(new ImageIcon(imagenEscalada));
 	}
-	
+
 	// Método para procesar la imagen en el método guardar.
-	private void procesarImagen(Gato gato, boolean esNuevo, String getAntesSet) throws GatitoErrorExceptions {
-		// Procesar la imagen y el directorio
-		File dirImgs = new File(System.getProperty("user.dir") + File.separator + "imagen");
-		if (!dirImgs.exists()) {
-			dirImgs.mkdir();
+	private void procesarImagen(Gato gato) throws GatitoErrorExceptions {
+		// Crear el directorio "imagenes" si no existe
+		File carpetaImagenes = new File("imagen");
+		if (!carpetaImagenes.exists()) {
+			carpetaImagenes.mkdir();
 		}
 
-		String getDespuesSet = gato.getIdentificadorGato(); // Almacena el nuevo identificador
+		// Generar el nuevo nombre para la imagen usando el identificador del gato
+		String nuevoIdentificador = gato.getIdentificadorGato(); // Nuevo identificador del gato
+		String rutaImagenActual = gato.getRutaImagen(); // Ruta actual de la imagen
+		File archivoTemporal = new File(this.rutaAbsolutaTemp); // Archivo temporal de la imagen
 
-		/*
-		 * Verificar si es necesario eliminar la imagen anterior únicamente cuando se
-		 * usa una nueva imagen con el mismo nombre(identificador) y cuando se cambia la
-		 * imagen y el nombre
-		 */
-		if (!esNuevo && !gato.getRutaImagen().equals(CONSTANTE_IMG)
-				&& !(gato.getRutaImagen().equals(this.rutaAbsolutaTemp))) {
+		// Obtener la extensión de la nueva imagen
+		String extensionArchivo = archivoTemporal.getName().substring(archivoTemporal.getName().lastIndexOf("."));
 
-			File imagenAnterior = new File(gato.getRutaImagen());
-			if (imagenAnterior.exists()) {
-				imagenAnterior.delete();
-			}
-		}
+		// Generar la nueva ruta donde se almacenará la imagen
+		String nuevaRutaImagen = "imagen" + File.separator + nuevoIdentificador + extensionArchivo;
 
-		// Obtener la extensión del archivo original y la ruta
-		String rutaD = "";
-		File archivoO = new File(this.rutaAbsolutaTemp);
-		int pExtension = archivoO.getName().lastIndexOf(".");
-		String extension = "";
-		if (pExtension > 0) {
-			extension = archivoO.getName().substring(pExtension);
-		}
+		// Verificar si es necesario actualizar la imagen
+		if (!rutaImagenActual.equals(nuevaRutaImagen)) {
+			// Copiar la imagen desde el archivo temporal a la nueva ubicación
+			ManejadorDeArchivos.copiarArchivo(this.rutaAbsolutaTemp, nuevaRutaImagen);
 
-		if (!(getAntesSet.equals(getDespuesSet))) {
-			rutaD = "imagen" + File.separator + getDespuesSet + extension;
-		} else {
-			rutaD = "imagen" + File.separator + getAntesSet + extension;
-		}
-
-		// Crear la copia y almacenar la ruta relativa de la copia
-		if (!(gato.getRutaImagen().equals(this.rutaAbsolutaTemp)) || !(getAntesSet.equals(getDespuesSet))) {
-				ManejadorDeArchivos.copiarArchivo(this.rutaAbsolutaTemp, rutaD);
-			/*
-			 * Verificar si es necesario eliminar la imagen cuando solo se cambia el nombre
-			 * y la imagen es la misma
-			 */
-			if (!esNuevo && !(getAntesSet.equals(getDespuesSet))) {
-				File imagenAnterior = new File(gato.getRutaImagen());
-				if (imagenAnterior.exists()) {
-					imagenAnterior.delete();
+			// Si el gato no es nuevo y la imagen actual no es la predeterminada, eliminar
+			// la anterior
+			if (!esNuevo && !rutaImagenActual.equals(CONSTANTE_IMG)) {
+				File archivoViejo = new File(rutaImagenActual);
+				if (archivoViejo.exists()) {
+					archivoViejo.delete();
 				}
 			}
 
-			// Aquí hacemos el set de la ruta
-			File archivoD = new File(rutaD);
-			if (archivoD.exists()) {
-				gato.setRutaImagen(rutaD);
+			// Validar si la copia se realizó correctamente
+			File archivoNuevo = new File(nuevaRutaImagen);
+			if (archivoNuevo.exists()) {
+				gato.setRutaImagen(nuevaRutaImagen); // Actualizar la ruta en el objeto gato
 			} else {
-				gato.setRutaImagen(CONSTANTE_IMG);
+				gato.setRutaImagen(CONSTANTE_IMG); // Ruta predeterminada en caso de error
 			}
 		}
 	}
-	
 
 	/**
 	 * Establece la política de enfoque personalizada para el diálogo.
